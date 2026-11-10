@@ -8,11 +8,13 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.10%2B-blue?logo=python">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react">
+  <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript">
+  <img src="https://img.shields.io/badge/Vite-6-646CFF?logo=vite">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss">
   <img src="https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi">
-  <img src="https://img.shields.io/badge/Streamlit-Frontend-FF4B4B?logo=streamlit">
-  <img src="https://img.shields.io/badge/Machine%20Learning-NLP-orange">
   <img src="https://img.shields.io/badge/LLM-Groq-black">
-  <img src="https://img.shields.io/badge/Threat%20Intelligence-VirusTotal-blue">
+  <img src="https://img.shields.io/badge/Threat_Intelligence-VirusTotal-blue">
 </p>
 
 ---
@@ -25,9 +27,11 @@ Traditional spam filters primarily focus on determining whether an email is spam
 
 Sentinel AI addresses this broader security problem by integrating multiple machine learning models, URL reputation intelligence, and large language model-based explanations into a unified analysis pipeline.
 
-The system analyzes email content, evaluates potential risks, and generates understandable threat assessments.
+The application combines a modern React and TypeScript frontend with a Python FastAPI backend, allowing users to analyze email communications through an interactive security dashboard.
 
 Rather than relying on a single classifier, Sentinel AI combines different detection mechanisms to provide a more comprehensive view of email security.
+
+---
 
 ## ✨ Key Features
 
@@ -112,69 +116,95 @@ Possible assessments include:
 
 Personal safety threats receive priority in the final assessment, followed by spam/phishing and malicious URL findings.
 
-### 6. Interactive Security Dashboard
+### 6. Modern React Security Dashboard
 
-The project includes a Streamlit-based dashboard with three primary sections:
+Sentinel AI features a modern React and TypeScript frontend that replaces the previous Streamlit interface.
+
+The application includes five primary sections:
+
+**Dashboard**
+- Email analysis statistics.
+- Spam and phishing detections.
+- Personal safety threat statistics.
+- URL threat statistics.
+- Threat distribution visualizations.
+- Recent analysis activity.
 
 **Email Analyzer**
-- Enter email subject.
-- Provide sender and receiver addresses.
-- Paste the email body.
-- Run automated analysis.
-- View spam classification and confidence.
-- Inspect personal safety threat results.
-- Review URL reputation reports.
-- Read AI-generated explanations.
+- Email subject input.
+- Sender and receiver addresses.
+- Email body input.
+- Automated threat analysis.
+- Loading and error states.
+- Detailed prediction results.
 
 **Analysis History**
-- View previous analyses within the current session.
-- Review classification results.
-- Inspect detected personal safety threats.
-- Clear session history.
+- Previously analyzed emails within the current session.
+- Classification results.
+- Threat assessments.
+- Analysis details.
 
-**About Project**
-- Overview of Sentinel AI.
+**Threat Intelligence**
+- Extracted URLs.
+- VirusTotal reputation reports.
+- Malicious and suspicious indicators.
+- URL detection statistics.
+
+**About**
+- Project overview.
 - Detection engine components.
+- System architecture.
 - Technology information.
+
+The frontend communicates with the FastAPI backend through a centralized Axios API service.
+
+Analysis history and dashboard statistics are currently session-based rather than permanently stored.
 
 ---
 
 ## 🏗️ System Architecture
 
-Sentinel AI follows a modular architecture with a Streamlit frontend communicating with a FastAPI backend.
+Sentinel AI follows a decoupled frontend-backend architecture with a React frontend communicating with a FastAPI backend.
 
 ```mermaid
 flowchart TD
-    A["User Input: Email"] --> B["Streamlit Dashboard"]
-    B --> C["FastAPI Backend"]
+    A["User"] --> B["React + TypeScript Frontend"]
 
-    C --> D["Spam / Phishing ML Model"]
-    C --> E["Personal Safety Threat Model"]
-    C --> F["URL Extraction"]
+    B --> C["Vite Application"]
+    C --> D["Axios API Client"]
 
-    F --> G["VirusTotal API"]
+    D --> E["FastAPI Backend"]
 
-    D --> H["Threat Assessment Engine"]
-    E --> H
-    G --> H
+    E --> F["Spam / Phishing ML Model"]
+    E --> G["Personal Safety Threat Model"]
+    E --> H["URL Extraction"]
 
-    H --> I["Groq AI Explanation"]
-    I --> J["Unified JSON Response"]
-    J --> K["Streamlit Results Dashboard"]
+    H --> I["VirusTotal API"]
+
+    F --> J["Threat Assessment Engine"]
+    G --> J
+    I --> J
+
+    J --> K["Groq AI Explanation"]
+
+    K --> L["Unified JSON Response"]
+    L --> M["React Results Dashboard"]
 ```
 
 ### Analysis Pipeline
 
-1. The user submits email information through the Streamlit dashboard.
-2. Streamlit sends the email data to the FastAPI `/predict` endpoint.
-3. The backend validates the incoming request.
-4. The spam detection model classifies the email.
-5. The personal safety model evaluates four threat categories.
-6. URLs are extracted from the email subject and body.
-7. Extracted URLs are checked using VirusTotal.
-8. The backend combines the available detection results.
-9. Groq generates a natural-language explanation.
-10. The final assessment is returned to the frontend.
+1. The user submits email information through the React dashboard.
+2. The frontend validates the input.
+3. Axios sends the email data to the FastAPI `/predict` endpoint.
+4. The backend validates the incoming request.
+5. The spam detection model classifies the email.
+6. The personal safety model evaluates four threat categories.
+7. URLs are extracted from the email subject and body.
+8. Extracted URLs are checked using VirusTotal.
+9. The backend combines the available detection results.
+10. Groq generates a natural-language explanation.
+11. The final assessment is returned as a JSON response.
+12. React displays the results through the security dashboard.
 
 ---
 
@@ -183,8 +213,15 @@ flowchart TD
 | Technology | Purpose |
 |---|---|
 | Python | Core programming language |
+| React 19 | Frontend application |
+| TypeScript 5.7 | Static typing and application development |
+| Vite 6 | Frontend development server and build tooling |
+| Tailwind CSS 4 | Styling and responsive design |
+| React Router 7 | Client-side navigation |
+| Axios | HTTP communication with FastAPI |
+| Recharts | Data visualization |
+| Lucide React | Interface icons |
 | FastAPI | Backend API development |
-| Streamlit | Interactive frontend |
 | Scikit-learn | Machine learning pipelines and transformations |
 | NLP | Text preprocessing and feature extraction |
 | Gensim | Word2Vec and NLP utilities |
@@ -195,7 +232,6 @@ flowchart TD
 | Groq API | LLM-powered explanations |
 | VirusTotal API | URL reputation intelligence |
 | Pydantic | API input validation |
-| Requests | HTTP communication |
 
 ---
 
@@ -204,38 +240,59 @@ flowchart TD
 ```text
 SpamThreatDetect.ai/
 │
-├── app.py
-│   └── FastAPI backend and prediction pipeline
+├── frontend/
+│   │
+│   ├── public/
+│   │
+│   ├── src/
+│   │   │
+│   │   ├── components/
+│   │   │   ├── analyzer/
+│   │   │   ├── common/
+│   │   │   ├── dashboard/
+│   │   │   ├── layout/
+│   │   │   └── threats/
+│   │   │
+│   │   ├── hooks/
+│   │   │
+│   │   ├── pages/
+│   │   │   ├── Dashboard.tsx
+│   │   │   ├── Analyzer.tsx
+│   │   │   ├── History.tsx
+│   │   │   ├── ThreatIntelligence.tsx
+│   │   │   └── About.tsx
+│   │   │
+│   │   ├── services/
+│   │   │   └── api.ts
+│   │   │
+│   │   ├── types/
+│   │   │
+│   │   ├── App.tsx
+│   │   ├── main.tsx
+│   │   └── index.css
+│   │
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── vite.config.ts
+│   └── tsconfig.json
 │
-├── streamlit_app.py
-│   └── Interactive Streamlit dashboard
+├── app.py
+├── transformers.py
+├── threat_preprocessing.py
+├── url_reputation.py
+├── llm_explainer.py
+├── down.py
 │
 ├── email_spam_detection_model.pkl
-│   └── Trained spam/phishing detection model
-│
 ├── email_threat_detection_model.pkl
-│   └── Trained personal safety threat model
 │
-├── transformers.py
-│   └── Custom NLP transformers and feature engineering
-│
-├── threat_preprocessing.py
-│   └── Personal safety threat preprocessing pipeline
-│
-├── url_reputation.py
-│   └── URL extraction and VirusTotal integration
-│
-├── llm_explainer.py
-│   └── Groq-powered explanation module
-│
-├── down.py
-│   └── NLTK resource downloader
+├── gemini.env
+├── virustotal.env
 │
 ├── .gitattributes
-│   └── Git LFS tracking configuration
-│
-└── .gitignore
-    └── Git ignored files and local configuration
+├── .gitignore
+└── README.md
 ```
 
 ---
@@ -247,6 +304,8 @@ SpamThreatDetect.ai/
 Before running Sentinel AI, make sure you have:
 
 - Python 3.10 or later.
+- Node.js 18 or later.
+- npm.
 - Git.
 - Git LFS.
 - A Groq API key.
@@ -280,6 +339,12 @@ git lfs pull
 
 Verify that the required model files are present:
 
+```bash
+ls -lh *.pkl
+```
+
+Required files:
+
 ```text
 email_spam_detection_model.pkl
 email_threat_detection_model.pkl
@@ -287,16 +352,10 @@ email_threat_detection_model.pkl
 
 **Important:** The application requires these trained model files to initialize its prediction pipeline.
 
-### 3. Create a Virtual Environment
+### 3. Create a Python Virtual Environment
 
 ```bash
-python -m venv venv
-```
-
-Activate it on Windows:
-
-```powershell
-venv\Scripts\activate
+python3 -m venv venv
 ```
 
 Activate it on macOS/Linux:
@@ -305,13 +364,25 @@ Activate it on macOS/Linux:
 source venv/bin/activate
 ```
 
-### 4. Install Dependencies
+Activate it on Windows:
 
-Install the required packages:
+```powershell
+venv\Scripts\activate
+```
+
+Upgrade pip:
 
 ```bash
-pip install fastapi "uvicorn[standard]" streamlit requests pandas numpy scikit-learn gensim nltk groq python-dotenv pydantic email-validator
+python -m pip install --upgrade pip
 ```
+
+### 4. Install Backend Dependencies
+
+```bash
+pip install fastapi "uvicorn[standard]" requests pandas numpy scikit-learn gensim nltk groq python-dotenv pydantic email-validator
+```
+
+Install any additional dependencies required by your local backend modules.
 
 ### 5. Download NLTK Resources
 
@@ -348,15 +419,47 @@ Obtain API keys from:
 
 Never commit actual API keys or secret credentials to GitHub.
 
+### 7. Set Up the React Frontend
+
+Navigate to the frontend directory:
+
+```bash
+cd frontend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+The frontend uses React, TypeScript, Vite, Tailwind CSS, React Router, Axios, Recharts, and Lucide React.
+
+### 8. Configure Frontend Environment
+
+Create a `.env` file inside the `frontend/` directory:
+
+```env
+VITE_API_BASE_URL=http://127.0.0.1:8000
+```
+
+This configures the frontend to communicate with the local FastAPI backend.
+
 ---
 
 ## 🚀 Running the Application
 
-Sentinel AI uses two separate processes: a FastAPI backend and a Streamlit frontend.
+Sentinel AI uses two separate processes: a FastAPI backend and a React frontend.
 
 ### Step 1: Start the FastAPI Backend
 
-Open a terminal in the project directory:
+Open a terminal in the project root and activate the virtual environment:
+
+```bash
+source venv/bin/activate
+```
+
+Start the backend:
 
 ```bash
 uvicorn app:app --reload
@@ -374,23 +477,59 @@ FastAPI interactive documentation:
 http://127.0.0.1:8000/docs
 ```
 
-### Step 2: Start the Streamlit Dashboard
-
-Open another terminal in the same project directory and activate the virtual environment.
-
-Run:
-
-```bash
-streamlit run streamlit_app.py
-```
-
-The dashboard will generally open at:
+Health endpoint:
 
 ```text
-http://localhost:8501
+http://127.0.0.1:8000/health
+```
+
+### Step 2: Start the React Frontend
+
+Open another terminal:
+
+```bash
+cd frontend
+```
+
+Start the Vite development server:
+
+```bash
+npm run dev
+```
+
+The frontend will generally be available at:
+
+```text
+http://localhost:5173
 ```
 
 Make sure the FastAPI backend is running before submitting an email for analysis.
+
+### Step 3: Build for Production
+
+Navigate to the frontend directory:
+
+```bash
+cd frontend
+```
+
+Generate an optimized production build:
+
+```bash
+npm run build
+```
+
+Preview the production build:
+
+```bash
+npm run preview
+```
+
+Run the TypeScript check:
+
+```bash
+npm run typecheck
+```
 
 ---
 
@@ -540,7 +679,8 @@ Some important limitations include:
 4. An unavailable URL report does not mean that a URL is safe.
 5. Groq-generated explanations depend on the information supplied to the language model and may contain inaccuracies.
 6. Personal safety predictions should not independently determine the credibility of a threat.
-7. The application currently analyzes submitted email content rather than directly connecting to an email inbox.
+7. Analysis history and dashboard statistics are currently session-based rather than permanently stored.
+8. The application currently analyzes submitted email content rather than directly connecting to an email inbox.
 
 ---
 
@@ -604,5 +744,5 @@ No license is currently specified in this repository. Please check the repositor
 <p align="center">
   <strong>Sentinel AI — Beyond Spam Detection. Toward Intelligent Threat Awareness.</strong>
   <br>
-  Built with Python, Machine Learning, NLP, and AI.
+  Built with React, TypeScript, Python, Machine Learning, NLP, and AI.
 </p>
