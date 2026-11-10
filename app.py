@@ -22,6 +22,7 @@ __main__.CustomFeatureEngineer = transformers.CustomFeatureEngineer
 __main__.NLPPreprocessor = transformers.NLPPreprocessor
 __main__.Word2VecTransformer = transformers.Word2VecTransformer
 
+
 with open("email_spam_detection_model.pkl", "rb") as file:
     model = pickle.load(file)
 
