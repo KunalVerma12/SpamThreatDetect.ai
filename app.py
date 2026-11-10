@@ -6,6 +6,7 @@ import threat_preprocessing
 import pandas as pd
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from typing import Literal
 from pydantic import BaseModel, EmailStr, Field, ConfigDict
 
@@ -44,6 +45,30 @@ app = FastAPI(
     description="AI-based email spam, phishing and personal safety threat detection",
     version="1.0"
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:4173",
+        "http://127.0.0.1:4173",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.get("/health")
+def health_check():
+    return {
+        "status": "online",
+        "service": "Sentinel AI - Email Threat Analyzer",
+        "version": "1.0"
+    }
 
 
 # ==================================================

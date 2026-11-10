@@ -14,18 +14,19 @@ load_dotenv("gemini.env")
 
 api_key = os.getenv("GROQ_API_KEY")
 
-if not api_key:
-    raise ValueError("GROQ_API_KEY not found in gemini.env")
-
 
 # ==================================================
 # 2. GROQ CLIENT
 # ==================================================
 
-client = Groq(
-    api_key=api_key,
-    timeout=30.0,
-    max_retries=1
+client = (
+    Groq(
+        api_key=api_key,
+        timeout=30.0,
+        max_retries=1
+    )
+    if api_key
+    else None
 )
 
 
@@ -157,6 +158,8 @@ Return only the explanation in plain text.
     # ==================================================
 
     try:
+        if client is None:
+            raise ValueError("GROQ_API_KEY not found in gemini.env")
 
         response = client.chat.completions.create(
 

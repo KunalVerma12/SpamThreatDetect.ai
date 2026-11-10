@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+:root {
+  --bg-canvas-light: #ffffff;
+  --bg-canvas-dark: #0f1115;
+  --bg-surface-light: #ffffff;
+  --bg-surface-dark: #181b22;
+  --bg-soft-light: #f7f7f5;
+  --bg-soft-dark: #222630;
+  --text-primary-light: #111111;
+  --text-primary-dark: #f8fafc;
+  --text-secondary-light: #4b5563;
+  --text-secondary-dark: #cbd5e1;
+  --text-muted-light: #6b7280;
+  --text-muted-dark: #94a3b8;
+  --border-subtle-light: #e5e7eb;
+  --border-subtle-dark: #2a2f3a;
+  --scrollbar-track-light: #f7f7f5;
+  --scrollbar-track-dark: #0f1115;
+  --scrollbar-thumb-light: #d1d5db;
+  --scrollbar-thumb-dark: #374151;
+
+  --bg-canvas: var(--bg-canvas-light);
+  --bg-surface: var(--bg-surface-light);
+  --bg-soft: var(--bg-soft-light);
+  --text-primary: var(--text-primary-light);
+  --text-secondary: var(--text-secondary-light);
+  --text-muted: var(--text-muted-light);
+  --border-subtle: var(--border-subtle-light);
+  --scrollbar-track: var(--scrollbar-track-light);
+  --scrollbar-thumb: var(--scrollbar-thumb-light);
+
+  @media (prefers-color-scheme: dark) {
+    --bg-canvas: var(--bg-canvas-dark);
+    --bg-surface: var(--bg-surface-dark);
+    --bg-soft: var(--bg-soft-dark);
+    --text-primary: var(--text-primary-dark);
+    --text-secondary: var(--text-secondary-dark);
+    --text-muted: var(--text-muted-dark);
+    --border-subtle: var(--border-subtle-dark);
+    --scrollbar-track: var(--scrollbar-track-dark);
+    --scrollbar-thumb: var(--scrollbar-thumb-dark);
+  }
+
+  @supports (color: light-dark(white, black)) {
+    --bg-canvas: light-dark(var(--bg-canvas-light), var(--bg-canvas-dark));
+    --bg-surface: light-dark(var(--bg-surface-light), var(--bg-surface-dark));
+    --bg-soft: light-dark(var(--bg-soft-light), var(--bg-soft-dark));
+    --text-primary: light-dark(var(--text-primary-light), var(--text-primary-dark));
+    --text-secondary: light-dark(var(--text-secondary-light), var(--text-secondary-dark));
+    --text-muted: light-dark(var(--text-muted-light), var(--text-muted-dark));
+    --border-subtle: light-dark(var(--border-subtle-light), var(--border-subtle-dark));
+    --scrollbar-track: light-dark(var(--scrollbar-track-light), var(--scrollbar-track-dark));
+    --scrollbar-thumb: light-dark(var(--scrollbar-thumb-light), var(--scrollbar-thumb-dark));
+  }
+
+  color-scheme: light dark;
+
+  &:has(> head > meta[name="color-scheme"][content="dark"]) {
+    color-scheme: dark;
+  }
+
+  &:has(> head > meta[name="color-scheme"][content="light"]) {
+    color-scheme: light;
+  }
+
+  --accent-primary: #ffdd00;
+  accent-color: #111111;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+}
+
+html,
+body {
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  min-height: 100vh;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+code,
+pre,
+.font-mono {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Buy Me a Coffee style floating card shadow */
+.bmac-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.06), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+}
+
+.bmac-soft {
+  background-color: var(--bg-soft);
+  border: 1px solid var(--border-subtle);
+}
+
+.bmac-text {
+  color: var(--text-primary);
+}
+
+.bmac-subtext {
+  color: var(--text-secondary);
+}
+
+.bmac-muted {
+  color: var(--text-muted);
+}
+
+/* Native modal dialog scroll containment per modern-web-guidance `dialog` */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background-color: rgba(17, 17, 17, 0.45);
+  backdrop-filter: blur(4px);
+}
+
+/* Responsive table wrapper per modern-web-guidance `responsive-table` */
+.table-wrapper {
+  overflow: auto;
+  max-inline-size: 100%;
+  container-type: inline-size;
+}
+
+.table-wrapper table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.table-wrapper thead {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 1;
+}
+
+@container (width < 640px) {
+  .responsive-stack-table,
+  .responsive-stack-table thead,
+  .responsive-stack-table tbody,
+  .responsive-stack-table tr,
+  .responsive-stack-table th,
+  .responsive-stack-table td {
+    display: block;
+  }
+
+  .responsive-stack-table thead {
+    display: none;
+  }
+
+  .responsive-stack-table tbody tr {
+    margin-block-end: 0.75rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: 1rem;
+    padding: 0.875rem;
+    background: var(--bg-surface);
+  }
+
+  .responsive-stack-table tbody td {
+    padding: 0.35rem 0;
+    border: none;
+  }
+
+  .responsive-stack-table tbody td[data-label]::before {
+    content: attr(data-label) ": ";
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-inline-end: 0.5rem;
+  }
+}
